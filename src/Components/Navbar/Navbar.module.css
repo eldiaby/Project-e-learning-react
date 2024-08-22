@@ -1,0 +1,53 @@
+ 
+.navbar-nav .nav-link {
+    font-size: 16px;
+    color: #555;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-nav .nav-link:hover,
+  .navbar-nav .nav-link.active {
+    background-color: #dc3545;
+    color: #007bff;
+  }
+  
+  .navbar-brand {
+    font-size: 20px;
+    font-weight: bold;
+    color: #007bff;
+  }
+  
+  .navbar-toggler {
+    border-color: rgba(0, 123, 255, 0.5);
+  }
+  
+  .navbar-toggler-icon {
+    background-color: #007bff;
+  }
+  
+
+  .cartIconWrapper {
+    position: relative;
+    display: inline-block;
+    font-size: 20px;  
+  }
+  
+  .cartIcon {
+    color: #0f0404;  
+    transition: color 0.3s ease;
+  }
+ 
+  
+  .badge {
+    background-color: #dc3545; 
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translate(-50%, -50%);
+  }
+  
+ 
