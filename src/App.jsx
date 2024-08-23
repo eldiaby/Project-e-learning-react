@@ -9,7 +9,7 @@ import About from './Pages/About/About'
 import NotFound from './Pages/NotFound/NotFound'
 import Register from './Pages/Register/Register'
 
-
+  let y =3;
   let x =  createBrowserRouter([
   {path:"",element:<Layout/>, children:[
       {index:true,element:<Home/>},
