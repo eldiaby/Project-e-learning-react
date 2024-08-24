@@ -21,12 +21,10 @@ export default function Home() {
         getProducts();
     }, []);
 
-    // Update filtered products based on search query
     const filteredProducts = products.filter(product =>
         product.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    // Adjust current page if necessary when search results change
     useEffect(() => {
         if (currentPage > Math.ceil(filteredProducts.length / cardsPerPage)) {
             setCurrentPage(1);

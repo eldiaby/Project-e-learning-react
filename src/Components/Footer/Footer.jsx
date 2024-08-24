@@ -1,7 +1,7 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Import Font Awesome CSS
-import './Footer.css'; // Import custom CSS for additional styling
+import 'bootstrap/dist/css/bootstrap.min.css'; 
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import './Footer.css';
 
 const Footer = () => {
     return (
