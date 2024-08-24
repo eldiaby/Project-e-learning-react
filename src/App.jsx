@@ -9,7 +9,6 @@ import About from './Pages/About/About'
 import NotFound from './Pages/NotFound/NotFound'
 import Register from './Pages/Register/Register'
 
-
   let x =  createBrowserRouter([
   {path:"",element:<Layout/>, children:[
       {index:true,element:<Home/>},
@@ -26,7 +25,6 @@ function App() {
 
 
   </RouterProvider>
-  
 }
 
 export default App

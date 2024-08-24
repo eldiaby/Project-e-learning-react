@@ -6,7 +6,7 @@ export default function Navbar() {
     return <>
         <nav className="navbar navbar-expand-lg mb-5 navbar-light bg-light ">
             <div className="container">
-                <NavLink className={`navbar-brand ${style.navbarBrand}`} to="/">MyApp</NavLink>
+                <NavLink className={`navbar-brand ${style.navbarBrand}`} to="/">E-commerce</NavLink>
                 <button
                     className={`navbar-toggler ${style.navbarToggler}`}
                     type="button"
