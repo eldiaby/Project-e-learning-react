@@ -2,6 +2,8 @@ import React from 'react'
 
 export default function Footer() {
   return <>
-     <h2>footer</h2>
+      <div className='position-fixed bottom-0'>
+        <h2>footer</h2>
+      </div>
   </>
 }

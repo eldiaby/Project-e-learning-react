@@ -1,0 +1,53 @@
+ 
+
+
+  
+.cart {
+ 
+    margin: auto;
+    box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 1rem;
+    border: transparent;
+}
+
+ 
+
+ 
+
+.summary {
+    background-color: #ddd;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+    padding: 4vh ;
+    color: rgb(65, 65, 65);
+}
+
+
+ 
+
+ 
+ 
+.disabledBtn{
+    background-color: lightgray;
+    cursor: not-allowed;
+    opacity: 0.6;
+ }
+
+ 
+ 
+ .emptyCard {
+    text-align: center;
+    padding: 2rem;
+    border-radius: 10px;
+  }
+  
+  .emptyCard h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .emptyCard p {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  

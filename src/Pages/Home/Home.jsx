@@ -9,7 +9,8 @@ export default function Home() {
         axios.get('https://ecommerce.routemisr.com/api/v1/products')
             .then(({ data }) => {
                 setProducts(data.data)
-
+               console.log(products);
+               
             })
             .catch((error) => {
                 console.log(error);
@@ -33,7 +34,7 @@ export default function Home() {
 
             {products.map((product) =>
                 <div key={product.id} className='col-md-2'>
-                    <Card title={product.title} price={product.price} ratingAverage={product.ratingsAverage} categoryName={product.category.name } imageCover={product.imageCover} />
+                    <Card product={product} />
                 </div>
             )
             }

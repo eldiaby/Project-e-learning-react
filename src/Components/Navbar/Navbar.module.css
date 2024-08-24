@@ -1,53 +1,61 @@
- 
-.navbar-nav .nav-link {
-    font-size: 16px;
-    color: #555;
-    transition: color 0.3s ease;
-  }
-  
-  .navbar-nav .nav-link:hover,
-  .navbar-nav .nav-link.active {
-    background-color: #dc3545;
-    color: #007bff;
-  }
-  
-  .navbar-brand {
-    font-size: 20px;
-    font-weight: bold;
-    color: #007bff;
-  }
-  
-  .navbar-toggler {
-    border-color: rgba(0, 123, 255, 0.5);
-  }
-  
-  .navbar-toggler-icon {
-    background-color: #007bff;
-  }
-  
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .cartIconWrapper {
-    position: relative;
-    display: inline-block;
-    font-size: 20px;  
-  }
-  
-  .cartIcon {
-    color: #0f0404;  
-    transition: color 0.3s ease;
-  }
- 
-  
-  .badge {
-    background-color: #dc3545; 
-    width: 20px;
-    height: 20px;
-    font-size: 12px;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transform: translate(-50%, -50%);
-  }
-  
- 
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff !important;
+}
+
+.navbar-toggler {
+  border-color: #fff;
+}
+
+.navbar-toggler-icon {
+  color: #fff;
+}
+
+.navItems {
+  align-items: center;
+}
+
+.nav-link {
+  color: #fff !important;
+  padding: 0.75rem 1rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover, .nav-link:focus {
+  color: #ffeb3b !important;
+  text-decoration: underline;
+}
+
+.navLinkActive {
+  font-weight: bold;
+  border-bottom: 2px solid #ffeb3b;
+}
+
+.cartIconWrapper {
+  position: relative;
+  display: inline-block;
+  color: #fff;
+}
+
+.badge {
+  background-color: #ff6f61;
+  font-size: 0.75rem;
+}
+
+.langButton {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+  margin-left: 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.langButton:hover, .langButton:focus {
+  background-color: #fff;
+  color: #4285f4;
+}

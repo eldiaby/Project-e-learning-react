@@ -1,0 +1,20 @@
+ 
+ 
+  .emptyCard {
+    text-align: center;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .emptyCard h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .emptyCard p {
+    font-size: 1rem;
+    color: #6c757d;
+  }
+  

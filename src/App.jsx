@@ -8,13 +8,17 @@ import Home from './Pages/Home/Home'
 import About from './Pages/About/About'
 import NotFound from './Pages/NotFound/NotFound'
 import Register from './Pages/Register/Register'
+import Cart from './Pages/Cart/Cart';
+import WishList from './Pages/WishList/WishList';
 
- 
+
   let x =  createBrowserRouter([
   {path:"",element:<Layout/>, children:[
       {index:true,element:<Home/>},
       {path:'about',element:<About/>},
       {path:'register',element:<Register/>},
+      {path:'cart',element:<Cart/>},
+      {path:'wishlist',element:<WishList/>},
       {path:'*',element:<NotFound/>}
    
   ]}  
