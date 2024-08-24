@@ -11,7 +11,6 @@ import Register from './Pages/Register/Register'
 import Cart from './Pages/Cart/Cart';
 import WishList from './Pages/WishList/WishList';
 
-
   let x =  createBrowserRouter([
   {path:"",element:<Layout/>, children:[
       {index:true,element:<Home/>},
@@ -30,7 +29,6 @@ function App() {
 
 
   </RouterProvider>
-  
 }
 
 export default App

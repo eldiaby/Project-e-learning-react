@@ -53,7 +53,7 @@ export default function Cart() {
         ):cartProducts.map((item) => (
             <div className="row mb-3" key={item.id}>
                 <div className="col-2">
-                    <img className="w-100" src={item.imageCover} alt={item.title} />
+                    <img className="w-100" src={item.imageCover} style={{height:"90px"}} alt={item.title} />
                 </div>
                 <div className="col-3">
                     <p className="text-muted">{item.category.name}</p>
