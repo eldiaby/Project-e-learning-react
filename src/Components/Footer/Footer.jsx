@@ -5,7 +5,7 @@ import './footer.css';
 
 const Footer = () => {
     return (
-        <footer className="footer mt-auto py-3 bg-dark text-white">
+        <footer className="footer mt-auto py-3  bg-dark text-white fixed-bottom">
             <div className="container">
                 <div className="row">
                     <div className="col-md-6 text-center text-md-left">

@@ -48,6 +48,7 @@ export default function Navbar() {
                             <li className="nav-item">
                                 <NavLink to="/about" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.about}</NavLink>
                             </li>
+                          
                             {isLoggedIn ? (
                                 <>
                                     <li className="nav-item">

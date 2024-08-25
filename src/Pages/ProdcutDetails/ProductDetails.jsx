@@ -46,7 +46,7 @@ export default function ProductDetails() {
 
     const isLiked = wishList.some(p => p.id === product?.id);
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (product) => {
         if (!isLoggedIn) {
             setAlertMessage('You should log in first to add items to the cart!');
             setAlertSeverity('error');
@@ -55,6 +55,8 @@ export default function ProductDetails() {
         }
 
         dispatch(addToCart(product));
+        console.log(product);
+        
         if (isLiked) {
             dispatch(removeFromWishlist(product.id));
         }
@@ -139,7 +141,7 @@ export default function ProductDetails() {
                     <p className={styles.productCategory}>Category: <span>{product.category.name}</span></p>
                     <p className={styles.productBrand}>Brand: <span>{product.brand.name}</span></p>
                    <div className="d-flex">
-                   <button className={styles.addToCartButton} onClick={() => { handleAddToCart }}>
+                   <button className={styles.addToCartButton} onClick={() => { handleAddToCart({...product,count:1}) }}>
                         <i className="fa-solid fa-cart-plus"></i> Add to Cart
                     </button>
                     <button

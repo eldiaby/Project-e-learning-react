@@ -17,20 +17,28 @@ export default function Login() {
         setisLoading(true);
         setErrorMsg(null);
         console.log(values);
-        let { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values).catch(
-            (err) => {
-                console.log(err);
-                setisLoading(false);
-                setErrorMsg(err.response.data.message);
+        if(values.email.includes("@admin")){
+            if(values.email=="admin123@admin.com"&& values.password=="123"){
+                    navigate("/admin")
             }
-        );
-
-        if (data.message === 'success') {
-            setisLoading(false);
-            localStorage.setItem("userToken", data.token);
-            navigate('/');
-            dispatch(loginAction());
+            
+        }else{
+            let { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values).catch(
+                (err) => {
+                    console.log(err);
+                    setisLoading(false);
+                    setErrorMsg(err.response.data.message);
+                }
+            );
+    
+            if (data.message === 'success') {
+                setisLoading(false);
+                localStorage.setItem("userToken", data.token);
+                navigate('/');
+                dispatch(loginAction());
+            }
         }
+       
     }
 
     let mySchema = Yup.object({

@@ -17,6 +17,7 @@ import Cart from './Pages/Cart/Cart';
 import WishList from './Pages/WishList/WishList';
 import Login from './Pages/Login/Login';
 import ProductDetails from './Pages/ProdcutDetails/ProductDetails';
+import Admin from './Pages/Admin/Admin';
 
   let x =  createBrowserRouter([
   {path:"",element:<Layout/>, children:[
@@ -27,6 +28,8 @@ import ProductDetails from './Pages/ProdcutDetails/ProductDetails';
       {path:'login',element:<Login/>},
       {path:'cart',element:<Cart/>},
       {path:'wishlist',element:<WishList/>},
+      {path:'admin',element:<Admin/>},
+
       {path:'*',element:<NotFound/>}
    
   ]}  
