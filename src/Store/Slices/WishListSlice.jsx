@@ -1,8 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const INITIAL_STATE = { 
-    wishlistProducts: [],
  
+const loadWishlistFromLocalStorage = () => {
+  try {
+    const myWishList = localStorage.getItem("wishlist");
+    if (myWishList === null) {
+      return [];  
+    }
+    return JSON.parse(myWishList);
+  } catch (e) {
+    console.error("Could not load wishlist from localStorage", e);
+    return [];
+  }
+};
+ 
+const saveWishlistToLocalStorage = (wishlist) => {
+  try {
+    const myWishList = JSON.stringify(wishlist);
+    localStorage.setItem("wishlist", myWishList);
+  } catch (e) {
+    console.error("Could not save wishlist to localStorage", e);
+  }
+};
+
+const INITIAL_STATE = { 
+    wishlistProducts: loadWishlistFromLocalStorage(),
 };
 
 const wishlistSlice = createSlice({
@@ -15,11 +37,13 @@ const wishlistSlice = createSlice({
 
             if (!existingItem) {
                 state.wishlistProducts.push(product);
+                saveWishlistToLocalStorage(state.wishlistProducts);
             } 
         },
         removeFromWishlist: (state, action) => {
             const productId = action.payload;
             state.wishlistProducts = state.wishlistProducts.filter(item => item.id !== productId); 
+            saveWishlistToLocalStorage(state.wishlistProducts);
         }
     }
 });

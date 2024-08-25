@@ -11,6 +11,8 @@
   transform: scale(1.02);
 }
 
+
+
 .category {
   font-size: 14px;
   color: #555;
@@ -23,11 +25,15 @@
   margin-bottom: 12px;
 }
 
+
+
 .price {
   font-size: 16px;
   font-weight: 600;
   color: #333;
 }
+
+
 
 .ratingIcon {
   color: #ffd700; /* Gold color for the star rating */

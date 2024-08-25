@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useDispatch, useSelector } from 'react-redux';
 import styles from "./Cart.module.css";
 import AlertDialog from '../../Components/AlertDialog/AlertDialog';
@@ -71,7 +71,7 @@ export default function Cart() {
                     <button className="border-0 rounded-2 w-25 mx-1">{item.count}</button>
                  
                     <button 
-                        className={`border-0 rounded-2 bg-danger bg-main text-white w-25 mx-1 ${item.count === item.quantity ? styles.disabledBtn : ''}`} 
+                        className={`border-0 rounded-2 bg-danger  text-white w-25 mx-1 ${item.count === item.quantity ? styles.disabledBtn : ''}`} 
                         onClick={() => increaseCount(item.id)}
                         disabled={item.count === item.quantity}
                     >

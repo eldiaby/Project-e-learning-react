@@ -25,7 +25,7 @@ export default function AlertDialog({ prodId }) {
 
     return (
         <React.Fragment>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="outlined"  color="error" onClick={handleClickOpen}>
                 Delete
             </Button>
             <Dialog

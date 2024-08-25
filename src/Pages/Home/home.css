@@ -1,0 +1,12 @@
+.page-button {
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 2px;
+  cursor: pointer;
+  background-color: #f8f9fa;
+}
+
+.page-button.active {
+  background-color: #007bff;
+  color: white;
+}

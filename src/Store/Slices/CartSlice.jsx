@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
+ 
+const loadCartFromLocalStorage = () => {
+    const storedCart = localStorage.getItem('cartProducts');
+    return storedCart ? JSON.parse(storedCart) : [];
+};
 
+ 
 const INITIAL_STATE = { 
-    cartProducts: [],
-    cartCount: 0, 
+    cartProducts: loadCartFromLocalStorage(),
+    cartCount: loadCartFromLocalStorage().length, 
     addStatus: '' 
 };
 
@@ -21,17 +27,28 @@ const cartSlice = createSlice({
             } else {
                 state.addStatus = 'Product already in cart!';
             }
+
+          
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
         },
         updateCartProductQuantity: (state, action) => {
             const { id, count } = action.payload;
             const product = state.cartProducts.find(item => item.id === id);
-            product.count = count;
+            if (product) {
+                product.count = count;
+            }
+
+      
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
         },
         removeFromCart: (state, action) => {
             const productId = action.payload;
             state.cartProducts = state.cartProducts.filter(item => item.id !== productId);
             state.cartCount = state.cartProducts.length;  
-            state.addStatus = 'removed successfully';  
+            state.addStatus = 'Removed successfully';  
+
+        
+            localStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
         },
         clearAddStatus: (state) => {
             state.addStatus = '';
@@ -41,4 +58,4 @@ const cartSlice = createSlice({
 
 export default cartSlice.reducer;
 
-export const { addToCart, removeFromCart, clearAddStatus,updateCartProductQuantity } = cartSlice.actions;
+export const { addToCart, removeFromCart, clearAddStatus, updateCartProductQuantity } = cartSlice.actions;
