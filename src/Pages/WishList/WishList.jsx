@@ -13,7 +13,8 @@ const WishList = () => {
   };
 
   return (
-    <div className="row">
+    <div className="container">
+ <div className="row mt-5">
       <h2 className="text-center mb-4">My Wishlist</h2>
       <div className="row">
         {wishList.length === 0 ? (
@@ -35,6 +36,8 @@ const WishList = () => {
         )}
       </div>
     </div>
+    </div>
+   
   );
 };
 

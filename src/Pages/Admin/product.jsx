@@ -1,52 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Button, Dialog, DialogTitle, DialogActions, DialogContent, TextField } from '@mui/material';
 import products from './products';
 
 export default function Product() {
-
-    const [product, setProduct] = useState(products)
-
-    const [editItems, setEditItems] = useState([])
+    const [product, setProduct] = useState(products);
+    const [editItems, setEditItems] = useState({});
+    const [openAddDialog, setOpenAddDialog] = useState(false);
+    const [openEditDialog, setOpenEditDialog] = useState(false);
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
     const handleChange = e => {
-        setEditItems(s => ({ ...s, [e.target.name]: e.target.value }))
-    }
+        setEditItems({ ...editItems, [e.target.name]: e.target.value });
+    };
 
     const handleDelete = id => {
-        const itemAfterDelete = product.filter((items) => {
-            return items.id !== id
-        })
-        setProduct(itemAfterDelete)
-    }
+        setItemToDelete(id);
+        setOpenConfirmDialog(true);
+    };
 
-    const handleUpdate = id => {
-        let itemAfterUpdate = product.map((item) => {
-            if (item.id === id) {
-                return editItems
-            }
-            else {
-                return item
-            }
-        })
-        setProduct(itemAfterUpdate)
-    }
+    const confirmDelete = () => {
+        const itemAfterDelete = product.filter(item => item.id !== itemToDelete);
+        setProduct(itemAfterDelete);
+        setOpenConfirmDialog(false);
+        setItemToDelete(null);
+    };
 
-    const handleAdd = e => {
+    const cancelDelete = () => {
+        setOpenConfirmDialog(false);
+        setItemToDelete(null);
+    };
 
-        e.preventDefault()
+    const handleUpdate = () => {
+        setProduct(product.map(item => item.id === editItems.id ? editItems : item));
+        setOpenEditDialog(false);
+    };
 
-        let newProduct = editItems
-
-        setProduct([newProduct, ...product])
-
-    }
-
+    const handleAdd = () => {
+        setProduct([editItems, ...product]);
+        setOpenAddDialog(false);
+    };
 
     return (
         <>
             <div className='table-responsive m-5'>
                 <table className="table caption-top">
-                    <caption className='fw-bold fs-3 mb-3'>Products
-                        <button className='btn btn-success ms-5' data-bs-toggle="modal" data-bs-target="#exampleModal">Add Product</button>
+                    <caption className='fw-bold fs-3 mb-3'>
+                        Products
+                        <Button variant="contained" color="success" onClick={() => setOpenAddDialog(true)} style={{ marginLeft: '16px' }}>
+                            Add Product
+                        </Button>
                     </caption>
                     <thead>
                         <tr className='text-center'>
@@ -60,80 +63,163 @@ export default function Product() {
                         </tr>
                     </thead>
                     <tbody>
-                        {
-                            product.map((items, i) => {
-                                return (
-                                    <>
-                                        <tr key={i}>
-                                            <td scope='row'>{i + 1}</td>
-                                            <td style={{ textAlign: 'justify' }}>{items.title}</td>
-                                            <td>{items.category}</td>
-                                            <td style={{ textAlign: 'justify' }}>{items.description}</td>
-                                            <td>{items.price}</td>
-                                            <td><img style={{ width: '60px' }} src={items.image} alt="internet-error" /></td>
-
-                                            <td className='text-center'><button className='btn btn-info outline-0' data-bs-toggle="modal" data-bs-target="#editModal"
-                                                onClick={() => { setEditItems(items) }}>Edit</button>
-                                                <button className='btn btn-danger mt-2' onClick={() => { handleDelete(items.id) }}>Delete</button></td>
-                                        </tr>
-                                    </>
-                                )
-                            })
-                        }
+                        {product.map((item, i) => (
+                            <tr key={item.id}>
+                                <td scope='row'>{i + 1}</td>
+                                <td style={{ textAlign: 'justify' }}>{item.title}</td>
+                                <td>{item.category}</td>
+                                <td style={{ textAlign: 'justify' }}>{item.description}</td>
+                                <td>{item.price}</td>
+                                <td><img style={{ width: '60px' }} src={item.image} alt="internet-error" /></td>
+                                <td className='text-center'>
+                                    <Button variant="contained" color="info" onClick={() => { setEditItems(item); setOpenEditDialog(true); }}>Edit</Button>
+                                    <Button variant="contained" color="error" onClick={() => handleDelete(item.id)} style={{ marginTop: '8px' }}>Delete</Button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
 
-            <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Add Items</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <form>
-                                <input type="text" name='id' className='form-control' onChange={handleChange} placeholder='Id' />
-                                <input type="text" name='title' className='form-control mt-3' onChange={handleChange} placeholder='Title' />
-                                <input type="text" name='category' className='form-control mt-3' onChange={handleChange} placeholder='Category' />
-                                <textarea name='description' className='form-control mt-3 w-100' onChange={handleChange} rows="5" placeholder='Description'></textarea>
-                                <input type="text" name='price' className='form-control mt-3' onChange={handleChange} placeholder='Price' />
-                                <input type="text" name='image' className='form-control mt-3' onChange={handleChange} placeholder='Image Link' />
-                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleAdd}>Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
+            <Dialog open={openAddDialog} onClose={() => setOpenAddDialog(false)}>
+                <DialogTitle>Add Product</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        name='id'
+                        label='Id'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='title'
+                        label='Title'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='category'
+                        label='Category'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='description'
+                        label='Description'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        multiline
+                        rows={4}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='price'
+                        label='Price'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='image'
+                        label='Image Link'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        onChange={handleChange}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenAddDialog(false)} color="secondary">Cancel</Button>
+                    <Button onClick={handleAdd} color="primary">Add</Button>
+                </DialogActions>
+            </Dialog>
 
+            {/* Edit Product Dialog */}
+            <Dialog open={openEditDialog} onClose={() => setOpenEditDialog(false)}>
+                <DialogTitle>Edit Product</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        name='id'
+                        label='Id'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        value={editItems.id || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='title'
+                        label='Title'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        value={editItems.title || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='category'
+                        label='Category'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        value={editItems.category || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='description'
+                        label='Description'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        multiline
+                        rows={4}
+                        value={editItems.description || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='price'
+                        label='Price'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        value={editItems.price || ''}
+                        onChange={handleChange}
+                    />
+                    <TextField
+                        name='image'
+                        label='Image Link'
+                        variant='outlined'
+                        fullWidth
+                        margin='normal'
+                        value={editItems.image || ''}
+                        onChange={handleChange}
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setOpenEditDialog(false)} color="secondary">Cancel</Button>
+                    <Button onClick={handleUpdate} color="primary">Save</Button>
+                </DialogActions>
+            </Dialog>
 
-            <div className="modal fade" id="editModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Edit Items</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <form>
-                                <input type="text" name='id' className='form-control' value={editItems.id} onChange={handleChange} placeholder='Type Id' />
-                                <input type="text" name='title' className='form-control mt-3' onChange={handleChange} value={editItems.title} placeholder='Type Title' />
-                                <input type="text" name='category' className='form-control mt-3' onChange={handleChange} value={editItems.category} placeholder='Type Category' />
-                                <textarea name='description' className='form-control mt-3 w-100' onChange={handleChange} value={editItems.description} rows="5" placeholder='Type Description'></textarea>
-                                <input type="text" name='price' className='form-control mt-3' onChange={handleChange} value={editItems.price} placeholder='Type Price' />
-                                <input type="text" name='image' className='form-control mt-3' onChange={handleChange} value={editItems.image} placeholder='Type Product' />
-                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => { handleUpdate(editItems.id) }}>Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/* Confirm Delete Dialog */}
+            <Dialog open={openConfirmDialog} onClose={cancelDelete}>
+                <DialogTitle>Confirm Delete</DialogTitle>
+                <DialogContent>
+                    Are you sure you want to delete this item?
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={cancelDelete} color="secondary">Cancel</Button>
+                    <Button onClick={confirmDelete} color="error">Delete</Button>
+                </DialogActions>
+            </Dialog>
         </>
-    )
+    );
 }

@@ -1,6 +1,7 @@
 import  { useEffect, useState } from 'react';
 import axios from 'axios';
 import Card from '../../Components/Card/Card';
+import Header from '../../Components/Header/Header';
 
 
 
@@ -52,7 +53,8 @@ const Home = () => {
         setCurrentPage(pageNumber);
     };
 
-    return (
+    return (<>
+        <Header/>
         <div className="container my-4">
             <div className="row mb-4">
                 <div className="col-md-9">
@@ -121,7 +123,7 @@ const Home = () => {
                 </div>
             </div>
         </div>
-    );
+        </>)
 };
 
 export default Home;

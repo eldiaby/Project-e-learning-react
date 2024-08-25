@@ -29,7 +29,7 @@ export default function Cart() {
     const totalPrice = cartProducts.reduce((acc, item) => acc + (item.price * item.count), 0);
 
     return (
-        <div className={`w-75 mx-auto ${styles.cart}  `}>
+        <div className={`w-75 mx-auto ${styles.cart} mt-5 `}>
             <div className="row rounded rounded-3">
                 <div className="col-lg-8  p-5">
                     <div className="mb-3 d-flex justify-content-between">
@@ -62,7 +62,7 @@ export default function Cart() {
                 <div className="col-3 d-flex align-items-center">
                  
                     <button 
-                        className={`border-0 rounded-2 bg-danger bg-main text-white w-25 mx-1 ${item.count === 1 ? styles.disabledBtn : ''}`} 
+                        className={`border-0 rounded-2 bg-info bg-main text-white w-25 mx-1 ${item.count === 1 ? styles.disabledBtn : ''}`} 
                         onClick={() => decreaseCount(item.id)}
                         disabled={item.count === 1}
                     >
@@ -71,7 +71,7 @@ export default function Cart() {
                     <button className="border-0 rounded-2 w-25 mx-1">{item.count}</button>
                  
                     <button 
-                        className={`border-0 rounded-2 bg-danger  text-white w-25 mx-1 ${item.count === item.quantity ? styles.disabledBtn : ''}`} 
+                        className={`border-0 rounded-2 bg-info  text-white w-25 mx-1 ${item.count === item.quantity ? styles.disabledBtn : ''}`} 
                         onClick={() => increaseCount(item.id)}
                         disabled={item.count === item.quantity}
                     >

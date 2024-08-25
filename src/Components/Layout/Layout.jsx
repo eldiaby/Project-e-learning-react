@@ -6,7 +6,7 @@ import { Outlet } from 'react-router-dom'
 export default function Layout() {
   return <>
    <Navbar/>
-   <div className="container mb-5">
+   <div className=" mb-5 pb-5">
         <Outlet></Outlet>
    </div>
   <Footer/>

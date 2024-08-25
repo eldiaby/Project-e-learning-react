@@ -5,6 +5,9 @@ import Product from './product'
 
 export default function Admin () {
   return (
-    <Product/>
+    <div className="container">
+        <Product/>
+    </div>
+  
   )
 }

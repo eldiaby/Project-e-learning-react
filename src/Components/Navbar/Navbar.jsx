@@ -27,7 +27,7 @@ export default function Navbar() {
 
     return (
         <>
-           <nav className={`navbar navbar-expand-lg navbar-dark bg-dark mb-5 ${style.navbar}`} dir={myLang === "en" ? "ltr" : "rtl"}>
+           <nav className={`navbar navbar-expand-lg navbar-dark bg-dark  ${style.navbar}`} dir={myLang === "en" ? "ltr" : "rtl"}>
                 <div className="container">
                     <NavLink className={`navbar-brand ${style.navbarBrand}`} to="/">MyApp</NavLink>
                     <button
