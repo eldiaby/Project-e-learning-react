@@ -4,9 +4,8 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { login as loginAction } from '../../Store/Slices/isLogginInSlice';
-import styles from './Login.module.css';  // Assuming you have a CSS module like Register
-
+import {  loginAction } from '../../Store/Slices/isLogginInSlice';
+import styles from './Login.module.css';  
 export default function Login() {
     const dispatch = useDispatch();
     const [isLoading, setisLoading] = useState(false);
@@ -16,31 +15,37 @@ export default function Login() {
     async function handleLogin(values) {
         setisLoading(true);
         setErrorMsg(null);
-        console.log(values);
-        if(values.email.includes("@admin")){
-            if(values.email=="admin123@admin.com"&& values.password=="123"){
-                    navigate("/admin")
-            }
-            
-        }else{
-            let { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values).catch(
-                (err) => {
-                    console.log(err);
-                    setisLoading(false);
-                    setErrorMsg(err.response.data.message);
-                }
-            );
     
-            if (data.message === 'success') {
-                setisLoading(false);
-                localStorage.setItem("userToken", data.token);
-                navigate('/');
-                dispatch(loginAction());
+        try {
+            if (values.email.includes("@admin")) {
+                if (values.email === "admin123@admin.com" && values.password === "123") {
+                    dispatch(loginAction("admin"));
+                    localStorage.setItem("userToken", "adminToken"); // Set a token or identifier for admin
+                    navigate("/admin");
+                } else {
+                    setErrorMsg("Invalid admin credentials.");
+                    setisLoading(false);
+                }
+            } else {
+                // Perform the user login request
+                const { data } = await axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', values);
+                
+                if (data.message === 'success') {
+                    localStorage.setItem("userToken", data.token);
+                    dispatch(loginAction("user")); // Dispatch login action for user
+                    navigate('/');
+                } else {
+                    setErrorMsg(data.message);
+                }
             }
+        } catch (err) {
+            console.error("Login error:", err);
+            setErrorMsg(err.response?.data?.message || "An unexpected error occurred");
+        } finally {
+            setisLoading(false);
         }
-       
     }
-
+    
     let mySchema = Yup.object({
         email: Yup.string().email('Invalid email').required('Email is required'),
         password: Yup.string().required('Password is required'),

@@ -8,8 +8,9 @@ import { logout } from '../../Store/Slices/isLogginInSlice';
 export default function Navbar() {
     const cartCount = useSelector((state) => state.cartSlice.cartCount);
     const myLang = useSelector((state) => state.LanguageSlice.language);
+    const userRole = useSelector((state) => state.authSlice.role);
     const translate = useSelector((state) => state.LanguageSlice.translation);
-    const isLoggedIn = useSelector((state) => state.authSlice.isLoggedIn); // استخدام useSelector للتحقق من حالة تسجيل الدخول
+    const isLoggedIn = useSelector((state) => state.authSlice.isLoggedIn); 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ export default function Navbar() {
 
     return (
         <>
-            <nav className={`navbar navbar-expand-lg navbar-dark bg-dark mb-5 ${style.navbar}`} dir={myLang === "en" ? "ltr" : "rtl"}>
+           <nav className={`navbar navbar-expand-lg navbar-dark bg-dark mb-5 ${style.navbar}`} dir={myLang === "en" ? "ltr" : "rtl"}>
                 <div className="container">
                     <NavLink className={`navbar-brand ${style.navbarBrand}`} to="/">MyApp</NavLink>
                     <button
@@ -42,15 +43,22 @@ export default function Navbar() {
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
                         <ul className={`navbar-nav ms-auto ${style.navItems}`}>
-                            <li className="nav-item">
-                                <NavLink to="/" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.home}</NavLink>
-                            </li>
-                            <li className="nav-item">
-                                <NavLink to="/about" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.about}</NavLink>
-                            </li>
-                          
-                            {isLoggedIn ? (
+                        <li className="nav-item">
+                                        <NavLink to="/" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.home}</NavLink>
+                                    </li>
+                            {userRole === "admin" && (
                                 <>
+                                    <li className="nav-item">
+                                        <NavLink to="/admin" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>admin</NavLink>
+                                    </li>
+                                    <li className="nav-item">
+                                        <NavLink to="/admin/products" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.manageProducts}</NavLink>
+                                    </li>
+                                </>
+                            )}
+                            {userRole === "user" && (
+                                <>
+        
                                     <li className="nav-item">
                                         <NavLink to="/cart" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>
                                             <div className={style.cartIconWrapper}>
@@ -66,11 +74,9 @@ export default function Navbar() {
                                             <i className="fa-solid fa-heart fs-4 text-danger"></i>
                                         </NavLink>
                                     </li>
-                                    <li className="nav-item">
-                                        <button className={`nav-link ${style.navLink} ${style.logoutButton}`} onClick={handleLogout}>{translate.logout}</button>
-                                    </li>
                                 </>
-                            ) : (
+                            )}
+                            {!isLoggedIn && (
                                 <>
                                     <li className="nav-item">
                                         <NavLink to="/login" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.login}</NavLink>
@@ -79,6 +85,11 @@ export default function Navbar() {
                                         <NavLink to="/register" className={`nav-link ${style.navLink}`} activeClassName={style.navLinkActive}>{translate.register}</NavLink>
                                     </li>
                                 </>
+                            )}
+                            {isLoggedIn && (
+                                <li className="nav-item">
+                                    <button className={`nav-link ${style.navLink} ${style.logoutButton}`} onClick={handleLogout}>{translate.logout}</button>
+                                </li>
                             )}
                             <li className="nav-item">
                                 <button className={`btn btn-outline-info ${style.langButton}`} onClick={toggleLang}>
