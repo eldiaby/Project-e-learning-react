@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import styles from './Card.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../Store/Slices/CartSlice';
@@ -17,7 +17,7 @@ export default function Card({ product }) {
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => setShowAlert(false), 2000);
-      return () => clearTimeout(timer); // Cleanup the timer
+      return () => clearTimeout(timer); 
     }
   }, [showAlert]);
   function addToMyCart(product) {

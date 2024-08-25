@@ -37,7 +37,7 @@ export default function ProductDetails() {
     useEffect(() => {
         if (showAlert) {
             const timer = setTimeout(() => setShowAlert(false), 2000);
-            return () => clearTimeout(timer); // Cleanup the timer
+            return () => clearTimeout(timer);  
         }
     }, [showAlert]);
 
